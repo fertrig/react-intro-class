@@ -6,12 +6,50 @@
     <script src="build/react.js"></script>
     <script src="build/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <style>
+        button {
+            font-size: 24px;
+            margin-right: 10px;
+            width: 40px;
+        }
+    </style>
 </head>
 <body>
 
     <div id="my-react-container"></div>
 
     <script type="text/babel">
+
+        var ClickCounter = React.createClass({
+            render: function() {
+                return (
+                    <div>
+                        <h1>Click Counter</h1>
+                           <div>
+                               <button onClick={this.increment}>+1</button>
+                               <button onClick={this.decrement}>-1</button>
+                           </div>
+                        <h2>Clicks: {this.state.clickCount}</h2>
+                    </div>
+                );
+            },
+            getInitialState: function() {
+                return {
+                    clickCount: 0
+                };
+            },
+            increment: function() {
+                this.setState({
+                    clickCount: this.state.clickCount + 1
+                });
+            },
+            decrement: function() {
+                this.setState({
+                    clickCount: this.state.clickCount - 1
+                });
+            }
+        });
 
         var Greeting = React.createClass({
             render: function() {
@@ -20,7 +58,10 @@
         });
 
         ReactDOM.render(
-            <Greeting name="Fernando" likeTo="play basketball" />,
+            <div>
+                <Greeting name="Fernando" likeTo="play basketball" />
+                <ClickCounter />
+            </div>,
             document.getElementById('my-react-container')
         );
 
