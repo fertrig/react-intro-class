@@ -20,15 +20,20 @@
 
     <script type="text/babel">
 
+        // Exercise:
+        // initialCount and offset are passed in as props
+        // 1. Use the initialCount to set the initial clickCount
+        // 2. Instead of incrementing by +/-1, use the offset to increment and decrement
+        // 3. Also, when the user clicks Reset, the count should reset to the initialCount
         var ClickCounter = React.createClass({
             render: function() {
                 return (
                     <div>
                         <h1>Click Counter</h1>
                            <div>
-                               <button onClick={this.increment}>+{this.props.offset}</button>
-                               <button onClick={this.decrement}>-{this.props.offset}</button>
-                               <button onClick={this.reset}>Reset</button>
+                               <button onClick={this.increment}>+1</button>
+                               <button onClick={this.decrement}>-1</button>
+                               <button>Reset</button>
                            </div>
                         <h2>Clicks: {this.state.clickCount}</h2>
                     </div>
@@ -36,22 +41,17 @@
             },
             getInitialState: function() {
                 return {
-                    clickCount: this.props.initialCount
+                    clickCount: 0
                 };
             },
             increment: function() {
                 this.setState({
-                    clickCount: this.state.clickCount + this.props.offset
+                    clickCount: this.state.clickCount + 1
                 });
             },
             decrement: function() {
                 this.setState({
-                    clickCount: this.state.clickCount - this.props.offset
-                });
-            },
-            reset: function() {
-                this.setState({
-                    clickCount: this.props.initialCount
+                    clickCount: this.state.clickCount - 1
                 });
             }
         });
