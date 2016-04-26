@@ -27,8 +27,8 @@
                     <div>
                         <h1>Click Counter</h1>
                            <div>
-                               <button onClick={this.increment}>+1</button>
-                               <button onClick={this.decrement}>-1</button>
+                               <button onClick={this.increment}>+{this.props.offset}</button>
+                               <button onClick={this.decrement}>-{this.props.offset}</button>
                            </div>
                         <h2>Clicks: {this.state.clickCount}</h2>
                     </div>
@@ -36,17 +36,17 @@
             },
             getInitialState: function() {
                 return {
-                    clickCount: 0
+                    clickCount: this.props.initialCount
                 };
             },
             increment: function() {
                 this.setState({
-                    clickCount: this.state.clickCount + 1
+                    clickCount: this.state.clickCount + this.props.offset
                 });
             },
             decrement: function() {
                 this.setState({
-                    clickCount: this.state.clickCount - 1
+                    clickCount: this.state.clickCount - this.props.offset
                 });
             }
         });
@@ -60,7 +60,7 @@
         ReactDOM.render(
             <div>
                 <Greeting name="Fernando" likeTo="play basketball" />
-                <ClickCounter />
+                <ClickCounter initialCount={11} offset={3} />
             </div>,
             document.getElementById('my-react-container')
         );
