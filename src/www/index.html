@@ -11,7 +11,6 @@
         button {
             font-size: 24px;
             margin-right: 10px;
-            width: 40px;
         }
     </style>
 </head>
@@ -29,6 +28,7 @@
                            <div>
                                <button onClick={this.increment}>+{this.props.offset}</button>
                                <button onClick={this.decrement}>-{this.props.offset}</button>
+                               <button onClick={this.reset}>Reset</button>
                            </div>
                         <h2>Clicks: {this.state.clickCount}</h2>
                     </div>
@@ -47,6 +47,11 @@
             decrement: function() {
                 this.setState({
                     clickCount: this.state.clickCount - this.props.offset
+                });
+            },
+            reset: function() {
+                this.setState({
+                    clickCount: this.props.initialCount
                 });
             }
         });
