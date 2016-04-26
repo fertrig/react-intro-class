@@ -6,25 +6,52 @@
     <script src="build/react.js"></script>
     <script src="build/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <style>
+        button {
+            font-size: 24px;
+            margin-right: 10px;
+            width: 40px;
+        }
+    </style>
 </head>
 <body>
 
-    <div id="my-react-container"></div>
+<div id="my-react-container"></div>
 
-    <script type="text/babel">
+<script type="text/babel">
 
-        var Greeting = React.createClass({
-            render: function() {
-                return <h1>Hi, my name is {this.props.name}. I like to {this.props.likeTo}.</h1>;
-            }
-        });
+    // Exercise: increment and decrement clicks starting at 0
+    var ClickCounter = React.createClass({
+        render: function() {
+            return (
+                <div>
+                    <h1>Click Counter</h1>
+                    <div>
+                        <button>+1</button>
+                        <button>-1</button>
+                    </div>
+                    <h2>Clicks: ____</h2>
+                </div>
+            );
+        }
+    });
 
-        ReactDOM.render(
-            <Greeting name="Fernando" likeTo="play basketball" />,
+    var Greeting = React.createClass({
+        render: function() {
+            return <h1>Hi, my name is {this.props.name}. I like to {this.props.likeTo}.</h1>;
+        }
+    });
+
+    ReactDOM.render(
+            <div>
+                <Greeting name="Fernando" likeTo="play basketball" />
+                <ClickCounter />
+            </div>,
             document.getElementById('my-react-container')
-        );
+    );
 
-    </script>
+</script>
 
 </body>
 </html>
