@@ -4,6 +4,6 @@ import React from 'react';
 export default React.createClass({
 
 	render() {
-		return <input placeholder="Text goes here" value=""/>
+		return <input placeholder="Text goes here" value="Hello"/>
 	}
 });
