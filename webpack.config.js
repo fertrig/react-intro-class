@@ -10,6 +10,7 @@ module.exports = {
     context: path.join(__dirname, 'src'),
     entry: {
         counter: './counter-app.js',
+        chat: './chat-app.js'
     },
     output: {
         path: path.join(__dirname, 'dist'),
