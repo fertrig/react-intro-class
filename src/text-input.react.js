@@ -1,20 +1,9 @@
 import React from 'react';
 
+// Exercise: make this component accept text input
 export default React.createClass({
 
-	getInitialState() {
-		return {
-			message: ""
-		};
-	},
-
 	render() {
-		return <input placeholder="Text goes here" value={this.state.message} onChange={this.onInputChange}/>
-	},
-
-	onInputChange(event) {
-		this.setState({
-			message: event.target.value
-		});
+		return <input placeholder="Text goes here" value=""/>
 	}
 });
