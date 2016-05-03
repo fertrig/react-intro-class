@@ -25,20 +25,13 @@ module.exports = {
                 loader: 'babel'
             },
             {
-                test: /src(\/|\\).*\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    'file?name=img-[name]-[hash:6].[ext]',
-                    'image-webpack?bypassOnDebug&optimizationLevel=7'
-                ]
-            },
-            {
                 test: /src(\/|\\).*\.css$/,
                 loader: 'style!css'
             },
             {
                 test: /src(\/|\\).*\.scss$/,
                 loader: 'style!css!sass'
-            },
+            }
         ]
     },
     plugins: []
