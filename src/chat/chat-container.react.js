@@ -6,21 +6,21 @@ export default React.createClass({
 	/*
 	 - require scss
 	 - add placeholder to input text "Enter message here"
-	 - hard-code some messages and render them
+	 - hard-code some messages and render them (map and react key)
 	 - the initial newMessage should be empty string
 	 - when messages list is empty, render "No messages"
-	 - on button click push message
+	 - on button click push message, only push new message if not empty (immutability helper)
 	 - on enter push message
-	 - after pushing new message to the message list, reset it
-	 - only push new message if not empty
-	 - on did update, scroll to bottom: show refs and lifecycle
+	 - after pushing newMessage to the message list, reset newMessage
+	 - on load, the new message input should have focus (refs and lifecycle)
+	 - on did update, scroll to bottom (refs and lifecycle) hint: code to scroll
 	 - show message count
 	 */
 
     getInitialState() {
         return {
-            messages: [{ id: 1, content: 'a'}, { id: 2, content: 'b'}],
-			lastId: 2,
+            messages: [],
+			lastId: 0,
 			newMessage: ''
         };
     },
@@ -31,14 +31,18 @@ export default React.createClass({
 
         return (
             <div className="chat-container">
-                <div className="messages">{this.renderMessages()}</div>
+                <div className="messages" ref="messages">{this.renderMessages()}</div>
                 <div className="message-input">
 					<input
 						type="text"
 						placeholder="Enter message here"
+						ref="messageInput"
 						value={this.state.newMessage}
 						onChange={this.onNewMessageChange}
 						onKeyPress={this.onNewMessageKeyPress}/>
+				</div>
+				<div className="message-button">
+					<button onClick={this.onSubmitClick}>Submit</button>
 				</div>
                 <div className="count"><span>{this.state.messages.length} messages</span></div>
             </div>
@@ -46,9 +50,14 @@ export default React.createClass({
     },
 
     renderMessages() {
-        return this.state.messages.map(m => {
-			return <div className="message" key={m.id}>{m.content}</div>
-		});
+		if (this.state.messages.length > 0) {
+			return this.state.messages.map(m => {
+				return <div className="message" key={m.id}>{m.content}</div>
+			});
+		}
+		else {
+			return <div className="no-messages">No messages</div>;
+		}
     },
 
 	onNewMessageChange(event) {
@@ -57,8 +66,12 @@ export default React.createClass({
 		});
 	},
 
-	onNewMessageKeyPress(event) {
-		if (event.key === 'Enter' && this.state.newMessage.trim().length > 0) {
+	onSubmitClick() {
+		this.submitNewMessage();
+	},
+
+	submitNewMessage() {
+		if (this.state.newMessage.trim().length > 0) {
 
 			let message = {
 				id: this.state.lastId + 1,
@@ -73,5 +86,19 @@ export default React.createClass({
 				newMessage: ''
 			});
 		}
+	},
+
+	onNewMessageKeyPress(event) {
+		if (event.key === 'Enter') {
+			this.submitNewMessage();
+		}
+	},
+
+	componentDidMount() {
+		this.refs.messageInput.focus();
+	},
+
+	componentDidUpdate() {
+		this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
 	}
 });
