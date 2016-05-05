@@ -35,25 +35,25 @@ export default React.createClass({
 	 [] 11. Show the message count inside the count div.
 	 */
 
-    render() {
+	render() {
 
 		require('./chat.scss');
 
-        return (
-            <div className="chat-container">
-                <div className="messages">
+		return (
+			<div className="chat-container">
+				<div className="messages">
 
 				</div>
-                <div className="message-input">
-					<input type="text" />
+				<div className="message-input">
+					<input type="text"/>
 				</div>
 				<div className="message-button">
 					<button>Submit</button>
 				</div>
-                <div className="count">
+				<div className="count">
 
 				</div>
-            </div>
-        );
-    }
+			</div>
+		);
+	}
 });
