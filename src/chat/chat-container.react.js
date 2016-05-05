@@ -1,29 +1,39 @@
 import React from 'react';
-import update from 'react-addons-update';
 
 export default React.createClass({
 
 	/*
-	 - require scss
-	 - add placeholder to input text "Enter message here"
-	 - hard-code some messages and render them (map and react key)
-	 - the initial newMessage should be empty string
-	 - when messages list is empty, render "No messages"
-	 - on button click push message, only push new message if not empty (immutability helper)
-	 - on enter push message
-	 - after pushing newMessage to the message list, reset newMessage
-	 - on load, the new message input should have focus (refs and lifecycle)
-	 - on did update, scroll to bottom (refs and lifecycle) hint: code to scroll
-	 - show message count
-	 */
+	 [] 1. Style component by requiring chat.scss.
 
-    getInitialState() {
-        return {
-            messages: [],
-			lastId: 0,
-			newMessage: ''
-        };
-    },
+	 [] 2. Add placeholder "Type here" to input text.
+
+	 [] 3. This component will render a list of messages, initially the list will be empty.
+	 	   When the list is empty, render 'No messages'.
+
+	 [] 4. Hard-code two initial messages. Render them inside of a div with className "messages".
+	 	   (Hint: Array.map, key prop)
+
+	 [] 5. This component will also render the new message the user is entering in the text input.
+	 	   The new message should be initially empty.
+	 	   (Hint: The text input should be a controlled component)
+
+	 [] 6. If the new message is not empty, when the user clicks the submit button,
+	 	   add the new message to the message list. (Hint: use immutability helper)
+
+	 [] 7. After adding the new message to the list, reset the new message
+
+	 [] 8. If the new message is not empty, when the user hits the Enter key,
+	  	   add the new message to the message list.
+
+	 [] 9. When the component loads, the new message input should have focus
+	 	   (Hint: refs and react component lifecycle)
+
+	 [] 10. The user should always be able to see the last message. After a message is added
+	   		to the list, the messages div should scroll to the bottom.
+	   		(Hint: domElement.scrollTop = domElement.scrollHeight)
+
+	 [] 11. Show the message count inside the count div.
+	 */
 
     render() {
 
@@ -31,74 +41,19 @@ export default React.createClass({
 
         return (
             <div className="chat-container">
-                <div className="messages" ref="messages">{this.renderMessages()}</div>
+                <div className="messages">
+
+				</div>
                 <div className="message-input">
-					<input
-						type="text"
-						placeholder="Enter message here"
-						ref="messageInput"
-						value={this.state.newMessage}
-						onChange={this.onNewMessageChange}
-						onKeyPress={this.onNewMessageKeyPress}/>
+					<input type="text" />
 				</div>
 				<div className="message-button">
-					<button onClick={this.onSubmitClick}>Submit</button>
+					<button>Submit</button>
 				</div>
-                <div className="count"><span>{this.state.messages.length} messages</span></div>
+                <div className="count">
+
+				</div>
             </div>
         );
-    },
-
-    renderMessages() {
-		if (this.state.messages.length > 0) {
-			return this.state.messages.map(m => {
-				return <div className="message" key={m.id}>{m.content}</div>
-			});
-		}
-		else {
-			return <div className="no-messages">No messages</div>;
-		}
-    },
-
-	onNewMessageChange(event) {
-		this.setState({
-			newMessage: event.target.value
-		});
-	},
-
-	onSubmitClick() {
-		this.submitNewMessage();
-	},
-
-	submitNewMessage() {
-		if (this.state.newMessage.trim().length > 0) {
-
-			let message = {
-				id: this.state.lastId + 1,
-				content: this.state.newMessage
-			};
-
-			let newMessageList = update(this.state.messages, {$push: [message]});
-
-			this.setState({
-				messages: newMessageList,
-				lastId: message.id + 1,
-				newMessage: ''
-			});
-		}
-	},
-
-	onNewMessageKeyPress(event) {
-		if (event.key === 'Enter') {
-			this.submitNewMessage();
-		}
-	},
-
-	componentDidMount() {
-		this.refs.messageInput.focus();
-	},
-
-	componentDidUpdate() {
-		this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
-	}
+    }
 });
