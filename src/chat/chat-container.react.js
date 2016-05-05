@@ -3,36 +3,22 @@ import update from 'react-addons-update';
 
 export default React.createClass({
 
-	/*
-	 - require scss
-	 - add placeholder to input text "Enter message here"
-	 - hard-code some messages and render them (map and react key)
-	 - the initial newMessage should be empty string
-	 - when messages list is empty, render "No messages"
-	 - on button click push message, only push new message if not empty (immutability helper)
-	 - on enter push message
-	 - after pushing newMessage to the message list, reset newMessage
-	 - on load, the new message input should have focus (refs and lifecycle)
-	 - on did update, scroll to bottom (refs and lifecycle) hint: code to scroll
-	 - show message count
-	 */
-
-    getInitialState() {
-        return {
-            messages: [],
+	getInitialState() {
+		return {
+			messages: [],
 			lastId: 0,
 			newMessage: ''
-        };
-    },
+		};
+	},
 
-    render() {
+	render() {
 
 		require('./chat.scss');
 
-        return (
-            <div className="chat-container">
-                <div className="messages" ref="messages">{this.renderMessages()}</div>
-                <div className="message-input">
+		return (
+			<div className="chat-container">
+				<div className="messages" ref="messages">{this.renderMessages()}</div>
+				<div className="message-input">
 					<input
 						type="text"
 						placeholder="Enter message here"
@@ -44,12 +30,12 @@ export default React.createClass({
 				<div className="message-button">
 					<button onClick={this.onSubmitClick}>Submit</button>
 				</div>
-                <div className="count"><span>{this.state.messages.length} messages</span></div>
-            </div>
-        );
-    },
+				<div className="count"><span>{this.state.messages.length} messages</span></div>
+			</div>
+		);
+	},
 
-    renderMessages() {
+	renderMessages() {
 		if (this.state.messages.length > 0) {
 			return this.state.messages.map(m => {
 				return <div className="message" key={m.id}>{m.content}</div>
@@ -58,7 +44,7 @@ export default React.createClass({
 		else {
 			return <div className="no-messages">No messages</div>;
 		}
-    },
+	},
 
 	onNewMessageChange(event) {
 		this.setState({
