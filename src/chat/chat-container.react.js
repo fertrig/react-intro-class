@@ -1,13 +1,13 @@
 import React from 'react';
 import update from 'react-addons-update';
-import actionCreators from './chat-actions-creators';
 
 export default React.createClass({
 
 	getInitialState() {
 		return {
 			messages: [],
-			lastId: 0
+			lastId: 0,
+			newMessage: ''
 		};
 	},
 
@@ -23,7 +23,7 @@ export default React.createClass({
 						type="text"
 						placeholder="Enter message here"
 						ref="messageInput"
-						value={this.props.newMessage}
+						value={this.state.newMessage}
 						onChange={this.onNewMessageChange}
 						onKeyPress={this.onNewMessageKeyPress}/>
 				</div>
@@ -47,7 +47,9 @@ export default React.createClass({
 	},
 
 	onNewMessageChange(event) {
-		actionCreators.changeNewMessage(event.target.value);
+		this.setState({
+			newMessage: event.target.value
+		});
 	},
 
 	onSubmitClick() {
@@ -55,11 +57,11 @@ export default React.createClass({
 	},
 
 	submitNewMessage() {
-		if (this.props.newMessage.trim().length > 0) {
+		if (this.state.newMessage.trim().length > 0) {
 
 			let message = {
 				id: this.state.lastId + 1,
-				content: this.props.newMessage
+				content: this.state.newMessage
 			};
 
 			let newMessageList = update(this.state.messages, {$push: [message]});

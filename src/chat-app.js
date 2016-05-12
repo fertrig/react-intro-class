@@ -2,9 +2,9 @@ import 'babel-polyfill';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChatController from './chat/chat-controller.react';
+import ChatContainer from './chat/chat-container.react';
 
 ReactDOM.render(
-    <ChatController/>,
+    <ChatContainer/>,
     document.getElementById('my-react-container')
 );
