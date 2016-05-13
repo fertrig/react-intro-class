@@ -1,6 +1,7 @@
 // event emitter is a node package that lets you emit events and listen for events
 import {EventEmitter} from 'events';
 import dispatcher from './chat-dispatcher';
+import messageApi from './message-api';
 
 class ChatStore extends EventEmitter {
 
@@ -36,6 +37,11 @@ class ChatStore extends EventEmitter {
 				this.emitChange();
 				break;
 
+			case 'incoming-new-message':
+				this._incomingNewMessage(action.payload.content);
+				this.emitChange();
+				break;
+
 			default:
 				break;
 		}
@@ -43,15 +49,18 @@ class ChatStore extends EventEmitter {
 
 	_submitNewMessage() {
 		if (this._newMessage.trim().length > 0) {
-
-			let messageObj = {
-				id: Date.now(),
-				content: this._newMessage
-			};
-
-			this._messages.push(messageObj);
+			messageApi.publish(this._newMessage);
 			this._newMessage = '';
 		}
+	}
+
+	_incomingNewMessage(content) {
+		let messageObj = {
+			id: Date.now(),
+			content
+		};
+
+		this._messages.push(messageObj);
 	}
 
 	emitChange() {

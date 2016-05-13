@@ -26,6 +26,18 @@ let actionCreators = {
 		};
 
 		dispatcher.dispatch(action);
+	},
+
+	incomingMessage(msg) {
+		
+		let action = {
+			type: 'incoming-new-message',
+			payload: {
+				content: msg
+			}
+		};
+
+		dispatcher.dispatch(action);
 	}
 };
 
