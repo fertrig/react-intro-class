@@ -1,15 +1,7 @@
 import React from 'react';
-import update from 'react-addons-update';
 import actionCreators from './chat-actions-creators';
 
 export default React.createClass({
-
-	getInitialState() {
-		return {
-			messages: [],
-			lastId: 0
-		};
-	},
 
 	render() {
 
@@ -30,14 +22,13 @@ export default React.createClass({
 				<div className="message-button">
 					<button onClick={this.onSubmitClick}>Submit</button>
 				</div>
-				<div className="count"><span>{this.state.messages.length} messages</span></div>
 			</div>
 		);
 	},
 
 	renderMessages() {
-		if (this.state.messages.length > 0) {
-			return this.state.messages.map(m => {
+		if (this.props.messages.length > 0) {
+			return this.props.messages.map(m => {
 				return <div className="message" key={m.id}>{m.content}</div>
 			});
 		}
@@ -55,21 +46,7 @@ export default React.createClass({
 	},
 
 	submitNewMessage() {
-		if (this.props.newMessage.trim().length > 0) {
-
-			let message = {
-				id: this.state.lastId + 1,
-				content: this.props.newMessage
-			};
-
-			let newMessageList = update(this.state.messages, {$push: [message]});
-
-			this.setState({
-				messages: newMessageList,
-				lastId: message.id + 1,
-				newMessage: ''
-			});
-		}
+		actionCreators.submitNewMessage();
 	},
 
 	onNewMessageKeyPress(event) {

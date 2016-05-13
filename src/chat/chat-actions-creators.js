@@ -17,6 +17,15 @@ let actionCreators = {
 
 		// we use the dispatcher to dispatch the action
 		dispatcher.dispatch(action);
+	},
+
+	submitNewMessage() {
+
+		let action = {
+			type: 'submit-new-message'
+		};
+
+		dispatcher.dispatch(action);
 	}
 };
 

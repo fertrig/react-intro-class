@@ -30,9 +30,27 @@ class ChatStore extends EventEmitter {
 				this._newMessage = action.payload.newValue;
 				this.emitChange();
 				break;
+			
+			case 'submit-new-message':
+				this._submitNewMessage();
+				this.emitChange();
+				break;
 
 			default:
 				break;
+		}
+	}
+
+	_submitNewMessage() {
+		if (this._newMessage.trim().length > 0) {
+
+			let messageObj = {
+				id: Date.now(),
+				content: this._newMessage
+			};
+
+			this._messages.push(messageObj);
+			this._newMessage = '';
 		}
 	}
 
