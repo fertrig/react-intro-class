@@ -52,31 +52,6 @@ class ChatStore extends EventEmitter {
 				this._incomingNewMessage(action.payload.content);
 				this.emitChange();
 				break;
-			
-			case 'add-new-giphy':
-				this._addNewGiphy(action.payload.giphyData);
-				this.emitChange();
-				break;
-
-			case 'add-giphy-list':
-				this._addGiphyList(action.payload.giphyList);
-				this.emitChange();
-				break;
-
-			case 'giphy-request-fetching':
-				this._giphyRequestStatus = 'fetching';
-				this.emitChange();
-				break;
-
-			case 'giphy-request-success':
-				this._giphyRequestStatus = 'success';
-				this.emitChange();
-				break;
-
-			case 'giphy-request-failed':
-				this._giphyRequestStatus = 'failure';
-				this.emitChange();
-				break;
 
 			default:
 				break;
@@ -97,19 +72,6 @@ class ChatStore extends EventEmitter {
 		};
 
 		this._messages.push(messageObj);
-	}
-	
-	_addNewGiphy(giphyData) {
-		this._giphys.push({
-			id: this._giphys.length,
-			url: giphyData.images.fixed_height.url
-		});
-	}
-
-	_addGiphyList(giphyList) {
-		for (let giphyData of giphyList) {
-			this._addNewGiphy(giphyData);
-		}
 	}
 
 	emitChange() {

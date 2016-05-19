@@ -15,8 +15,6 @@ export default React.createClass({
 		return {
 			messages: store.messages,
 			newMessage: store.newMessage,
-			giphys: store.giphys,
-			giphyRequestStatus: store.giphyRequestStatus
 		};
 	},
 
@@ -34,8 +32,6 @@ export default React.createClass({
 			<div className="chat-controller">
 				<ChatContainer messages={this.state.messages} newMessage={this.state.newMessage} />
 				<ChatMetrics messages={this.state.messages} newMessage={this.state.newMessage} />
-				<RequestStatus requestStatus={this.state.giphyRequestStatus} />
-				<ChatGiphys giphys={this.state.giphys} />
 			</div>
 		);
 	},

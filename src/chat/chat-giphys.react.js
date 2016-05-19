@@ -11,11 +11,7 @@ export default React.createClass({
 	},
 
 	_renderGiphys() {
-		return this.props.giphys.map(giphy => {
-			return (
-				<img key={giphy.id} src={giphy.url} />
-			);
-		});
+		
 	}
 
 });

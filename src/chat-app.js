@@ -8,6 +8,5 @@ import giphyApi from './chat/giphy-api';
 
 ReactDOM.render(
     <ChatController/>,
-    document.getElementById('my-react-container'),
-	giphyApi.trending
+    document.getElementById('my-react-container')
 );
