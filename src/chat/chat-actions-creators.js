@@ -49,12 +49,31 @@ let actionCreators = {
 		}	
 	},
 
+	updateRequestStatus(actionType) {
+		let action = {
+			type: actionType
+		};
+
+		dispatcher.dispatch(action);
+	},
+
 	addNewGiphy(giphyData) {
 
 		let action = {
 			type: 'add-new-giphy',
 			payload: {
 				giphyData
+			}
+		};
+
+		dispatcher.dispatch(action);
+	},
+
+	addNewGiphyList(giphyList) {
+		let action = {
+			type: 'add-giphy-list',
+			payload: {
+				giphyList
 			}
 		};
 

@@ -3,6 +3,7 @@ import store from './chat-store';
 import ChatContainer from './chat-container.react';
 import ChatMetrics from './chat-metrics.react';
 import ChatGiphys from './chat-giphys.react';
+import RequestStatus from './request-status.react.js';
 
 export default React.createClass({
 	
@@ -14,12 +15,14 @@ export default React.createClass({
 		return {
 			messages: store.messages,
 			newMessage: store.newMessage,
-			giphys: store.giphys
+			giphys: store.giphys,
+			giphyRequestStatus: store.giphyRequestStatus
 		};
 	},
 
 	componentDidMount() {
 		store.addChangeListener(this.handleChange);
+
 	},
 
 	handleChange() {
@@ -31,6 +34,7 @@ export default React.createClass({
 			<div className="chat-controller">
 				<ChatContainer messages={this.state.messages} newMessage={this.state.newMessage} />
 				<ChatMetrics messages={this.state.messages} newMessage={this.state.newMessage} />
+				<RequestStatus requestStatus={this.state.giphyRequestStatus} />
 				<ChatGiphys giphys={this.state.giphys} />
 			</div>
 		);

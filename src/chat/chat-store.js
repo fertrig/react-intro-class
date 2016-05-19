@@ -10,6 +10,8 @@ class ChatStore extends EventEmitter {
 		this._messages = [];
 		this._newMessage = '';
 		this._giphys = [];
+		this._giphyRequestStatus = '';
+
 		dispatcher.register(this.handleAction.bind(this));
 	}
 
@@ -23,6 +25,10 @@ class ChatStore extends EventEmitter {
 
 	get giphys() {
 		return this._giphys;
+	}
+
+	get giphyRequestStatus() {
+		return this._giphyRequestStatus;
 	}
 
 	handleAction(action) {
@@ -52,6 +58,26 @@ class ChatStore extends EventEmitter {
 				this.emitChange();
 				break;
 
+			case 'add-giphy-list':
+				this._addGiphyList(action.payload.giphyList);
+				this.emitChange();
+				break;
+
+			case 'giphy-request-fetching':
+				this._giphyRequestStatus = 'fetching';
+				this.emitChange();
+				break;
+
+			case 'giphy-request-success':
+				this._giphyRequestStatus = 'success';
+				this.emitChange();
+				break;
+
+			case 'giphy-request-failed':
+				this._giphyRequestStatus = 'failure';
+				this.emitChange();
+				break;
+
 			default:
 				break;
 		}
@@ -78,6 +104,12 @@ class ChatStore extends EventEmitter {
 			id: this._giphys.length,
 			url: giphyData.images.fixed_height.url
 		});
+	}
+
+	_addGiphyList(giphyList) {
+		for (let giphyData of giphyList) {
+			this._addNewGiphy(giphyData);
+		}
 	}
 
 	emitChange() {
