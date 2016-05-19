@@ -1,4 +1,5 @@
 import dispatcher from './chat-dispatcher';
+import giphyApi from './giphy-api';
 
 // this object will have all the helper functions that will dispatch actions
 // the action creators form an interface of what's possible to do with the application
@@ -34,6 +35,26 @@ let actionCreators = {
 			type: 'incoming-new-message',
 			payload: {
 				content: msg
+			}
+		};
+
+		dispatcher.dispatch(action);
+	},
+	
+	checkGiphyCommand(newMessage) {
+		let giphyCommand = '/giphy';
+		if (newMessage.startsWith(giphyCommand)) {
+			let seed = newMessage.substring(giphyCommand.length + 1);
+			giphyApi.random(seed);
+		}	
+	},
+
+	addNewGiphy(giphyData) {
+
+		let action = {
+			type: 'add-new-giphy',
+			payload: {
+				giphyData
 			}
 		};
 

@@ -47,6 +47,7 @@ export default React.createClass({
 
 	submitNewMessage() {
 		actionCreators.submitNewMessage();
+		//actionCreators.checkGiphyCommand(this.props.newMessage);
 	},
 
 	onNewMessageKeyPress(event) {

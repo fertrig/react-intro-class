@@ -9,6 +9,7 @@ class ChatStore extends EventEmitter {
 		super();
 		this._messages = [];
 		this._newMessage = '';
+		this._giphys = [];
 		dispatcher.register(this.handleAction.bind(this));
 	}
 
@@ -18,6 +19,10 @@ class ChatStore extends EventEmitter {
 
 	get newMessage() {
 		return this._newMessage;
+	}
+
+	get giphys() {
+		return this._giphys;
 	}
 
 	handleAction(action) {
@@ -41,6 +46,11 @@ class ChatStore extends EventEmitter {
 				this._incomingNewMessage(action.payload.content);
 				this.emitChange();
 				break;
+			
+			case 'add-new-giphy':
+				this._addNewGiphy(action.payload.giphyData);
+				this.emitChange();
+				break;
 
 			default:
 				break;
@@ -61,6 +71,13 @@ class ChatStore extends EventEmitter {
 		};
 
 		this._messages.push(messageObj);
+	}
+	
+	_addNewGiphy(giphyData) {
+		this._giphys.push({
+			id: this._giphys.length,
+			url: giphyData.images.fixed_height.url
+		});
 	}
 
 	emitChange() {

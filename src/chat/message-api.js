@@ -9,6 +9,7 @@ pubnub.subscribe({
 	channel: 'react-class',
 	callback: function(m) {
 		actionCreators.incomingMessage(m);
+		actionCreators.checkGiphyCommand(m);
 	},
 	error: function(err) {
 		console.log(err);
