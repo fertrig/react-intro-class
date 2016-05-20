@@ -50,7 +50,8 @@ gulp.task('webpack-dev-server', function(callback) {
         quiet: false,
         noInfo: false,
         publicPath: '/dist/',
-        stats: { colors: true }
+        stats: { colors: true },
+        historyApiFallback: true
     });
 
     server.listen(8080, '0.0.0.0', function(err) {

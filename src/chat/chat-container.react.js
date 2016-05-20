@@ -5,8 +5,6 @@ export default React.createClass({
 
 	render() {
 
-		require('./chat.scss');
-
 		return (
 			<div className="chat-container">
 				<div className="messages" ref="messages">{this.renderMessages()}</div>

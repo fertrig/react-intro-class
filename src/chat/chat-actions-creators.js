@@ -78,6 +78,14 @@ let actionCreators = {
 		};
 
 		dispatcher.dispatch(action);
+	},
+
+	clearGiphys() {
+		let action = {
+			type: 'clear-giphys'
+		};
+
+		dispatcher.dispatch(action);
 	}
 };
 

@@ -78,6 +78,11 @@ class ChatStore extends EventEmitter {
 				this.emitChange();
 				break;
 
+			case 'clear-giphys':
+				this._giphys = [];
+				this.emitChange();
+				break;
+
 			default:
 				break;
 		}
