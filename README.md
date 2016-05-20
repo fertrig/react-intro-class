@@ -6,7 +6,7 @@ Exercise 09 - Ajax
 
 [] 1. Create a new component ChatGiphys that will render a list of giphys
 [] 2. ChatController will own ChatGiphys
-[] 3. Ff the new message starts with '/giphy' then call the giphy api to get a giphy based on the new message
+[] 3. If the new message starts with '/giphy' then call the giphy api to get a giphy based on the new message
 [] 4. When the request completes, fire an action with the giphy data
 [] 5. The chat store will handle this action and it will add the new giphy to a list of giphys
 [] 6. Chat store should emit change so the ChatGiphys component is updated
