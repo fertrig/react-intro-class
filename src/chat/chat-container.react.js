@@ -18,7 +18,7 @@ export default React.createClass({
 	 	   (Hint: The text input should be a controlled component)
 
 	 [] 6. If the new message is not empty, when the user clicks the submit button,
-	 	   add the new message to the message list. (Hint: use immutability helper)
+	 	   add the new message to the message list.
 
 	 [] 7. After adding the new message to the list, reset the new message
 
@@ -32,7 +32,7 @@ export default React.createClass({
 	   		to the list, the messages div should scroll to the bottom.
 	   		(Hint: domElement.scrollTop = domElement.scrollHeight)
 
-	 [] 11. Show the message count inside the count div.
+	 [] 11. Show the message count inside the "count" div.
 	 */
 
 	render() {
