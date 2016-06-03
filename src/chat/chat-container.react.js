@@ -1,6 +1,14 @@
 import React from 'react';
 import update from 'react-addons-update';
 
+function Message(props) {
+	return <div className="message">{props.message.content}</div>
+}
+
+function MessageCount(props) {
+	return <div className="count"><span>{props.messages.length} messages</span></div>
+}
+
 export default React.createClass({
 
 	getInitialState() {
@@ -17,12 +25,14 @@ export default React.createClass({
 
 		return (
 			<div className="chat-container">
-				<div className="messages" ref="messages">{this.renderMessages()}</div>
+				<div className="messages-container" ref="messagesContainer">
+					{this._renderMessages()}
+				</div>
 				<div className="message-input">
 					<input
 						type="text"
 						placeholder="Enter message here"
-						ref="messageInput"
+						ref={this._focusInput}
 						value={this.state.newMessage}
 						onChange={this.onNewMessageChange}
 						onKeyPress={this.onNewMessageKeyPress}/>
@@ -30,15 +40,19 @@ export default React.createClass({
 				<div className="message-button">
 					<button onClick={this.onSubmitClick}>Submit</button>
 				</div>
-				<div className="count"><span>{this.state.messages.length} messages</span></div>
+				<MessageCount messages={this.state.messages} />
 			</div>
 		);
 	},
 
-	renderMessages() {
+	_focusInput(domElement) {
+		domElement.focus();
+	},
+
+	_renderMessages() {
 		if (this.state.messages.length > 0) {
 			return this.state.messages.map(m => {
-				return <div className="message" key={m.id}>{m.content}</div>
+				return <Message message={m} key={m.id} />;
 			});
 		}
 		else {
@@ -80,11 +94,7 @@ export default React.createClass({
 		}
 	},
 
-	componentDidMount() {
-		this.refs.messageInput.focus();
-	},
-
 	componentDidUpdate() {
-		this.refs.messages.scrollTop = this.refs.messages.scrollHeight;
+		this.refs.messagesContainer.scrollTop = this.refs.messagesContainer.scrollHeight;
 	}
 });
