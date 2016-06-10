@@ -1,38 +1,46 @@
 import React from 'react';
-import store from './chat-store';
-import ChatContainer from './chat-container.react';
+import chatStore from './chat-store';
+import ChatContainer from './chat-container.react'
 import ChatMetrics from './chat-metrics.react';
 
 export default React.createClass({
-	
 	getInitialState() {
+		return this._getState();
+	},
+
+	_getState() {
 		return {
-			messages: store.messages,
-			newMessage: store.newMessage
-		};
-	},
-
-	componentDidMount() {
-		store.addChangeListener(this.handleChange);
-	},
-
-	handleChange() {
-		this.setState({
-			messages: store.messages,
-			newMessage: store.newMessage
-		});
+			messageList: chatStore.messageList,
+			newMessage: chatStore.newMessage
+		}
 	},
 
 	render() {
 		return (
 			<div className="chat-controller">
-				<ChatContainer messages={this.state.messages} newMessage={this.state.newMessage} />
-				<ChatMetrics messages={this.state.messages} newMessage={this.state.newMessage} />
+				<ChatContainer
+					messageList={this.state.messageList}
+					newMessage={this.state.newMessage} />
+				<ChatMetrics {...this.state} />
 			</div>
 		);
 	},
 
+	// render() {
+	// 	return (
+	// 		<ChatContainer {...this.state} />
+	// 	);
+	// }
+	
+	componentDidMount() {
+		chatStore.addEventListener(this._handleChange);
+	},
+	
 	componentWillUnmount() {
-		store.removeChangeListener(this.handleChange);
+		chatStore.removeEventListener(this._handleChange);
+	},
+
+	_handleChange() {
+		this.setState(this._getState());
 	}
 });
