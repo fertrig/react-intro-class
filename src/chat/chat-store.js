@@ -1,39 +1,41 @@
-// event emitter is a node package that lets you emit events and listen for events
 import {EventEmitter} from 'events';
 import dispatcher from './chat-dispatcher';
 import messageApi from './message-api';
+
+const storeChangeEvent = 'chat-store-change';
 
 class ChatStore extends EventEmitter {
 
 	constructor() {
 		super();
-		this._messages = [];
-		this._newMessage = '';
+		this._state = {
+			messageList: [],
+			newMessage: ''
+		};
+
 		dispatcher.register(this.handleAction.bind(this));
 	}
 
-	get messages() {
-		return this._messages;
+	get messageList() {
+		return this._state.messageList;
 	}
 
 	get newMessage() {
-		return this._newMessage;
+		return this._state.newMessage;
 	}
 
 	handleAction(action) {
 
-		global.setTimeout(() => {
-			console.log(action.type);
-		},0);
+		console.log(action.type);
 
 		switch(action.type) {
 			case 'change-new-message':
-				this._newMessage = action.payload.newValue;
+				this._state.newMessage = action.payload.content;
 				this.emitChange();
 				break;
-			
-			case 'submit-new-message':
-				this._submitNewMessage();
+
+			case 'submit-message':
+				this._submitMessage();
 				this.emitChange();
 				break;
 
@@ -47,10 +49,10 @@ class ChatStore extends EventEmitter {
 		}
 	}
 
-	_submitNewMessage() {
-		if (this._newMessage.trim().length > 0) {
-			messageApi.publish(this._newMessage);
-			this._newMessage = '';
+	_submitMessage() {
+		if (this._state.newMessage.trim().length > 0) {
+			messageApi.publish(this._state.newMessage);
+			this._state.newMessage = '';
 		}
 	}
 
@@ -60,22 +62,22 @@ class ChatStore extends EventEmitter {
 			content
 		};
 
-		this._messages.push(messageObj);
+		this._state.messageList.push(messageObj);
 	}
 
 	emitChange() {
-		this.emit('chat-store-change');
+		this.emit(storeChangeEvent);
 	}
 
-	addChangeListener(callback) {
-		this.on('chat-store-change', callback);
+	addEventListener(callback) {
+		this.on(storeChangeEvent, callback);
 	}
 
-	removeChangeListener(callback) {
-		this.removeListener('chat-store-change', callback);
+	removeEventListener(callback) {
+		this.removeListener(storeChangeEvent, callback);
 	}
 }
 
-let store = new ChatStore();
+let chatStore = new ChatStore();
 
-export default store;
+export default chatStore;
